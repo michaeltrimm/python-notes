@@ -1,5 +1,9 @@
 # Python Notes
 
+## Generators vs Lists
+
+In Python `generators` do not hold results in memory whereas `lists` do.
+
 ## Lambdas
 
 Anonymous functions `lambda`, but they different from other programming languages' definitions of anonymous functions. 
