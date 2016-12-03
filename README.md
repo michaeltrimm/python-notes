@@ -1,5 +1,15 @@
 # Python Notes
 
+## Lambdas
+
+Anonymous functions `lambda`, but they different from other programming languages' definitions of anonymous functions. 
+
+`lambda`s are *first class* functions and are treated like any other function.
+
+## Maps
+
+A `map` takes a `function` and an `array` as an argument, then runs each value of the `array` through the `function` and returns a new `array` of those results. 
+
 ## Operators
 
 ### Arithmetic
