@@ -4,6 +4,8 @@
 
 In Python `generators` do not hold results in memory whereas `lists` do.
 
+See the [memory.py](memory.py) file for an example.
+
 ## Lambdas
 
 Anonymous functions `lambda`, but they different from other programming languages' definitions of anonymous functions. 
