@@ -1,5 +1,16 @@
 #!/usr/bin/python
 
+"""
+0
+2
+3
+4
+8
+3
+None
+
+"""
+
 class Node:
     def __init__(self, value):
         self.left = None

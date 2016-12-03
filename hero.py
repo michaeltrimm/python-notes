@@ -1,5 +1,12 @@
 #!/usr/bin/python
 
+"""
+My name is Mike
+My name is Heather
+...And I am Catwoman
+
+"""
+
 class Person(object):
     def __init__(self, name):
         self.name = name

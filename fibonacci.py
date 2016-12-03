@@ -2,6 +2,37 @@
 
 import time
 
+"""
+SLOW
+Test | Sequence  | Result
+1:1:2: Fib(10) = 55 (0.0s)
+2:1:2: Fib(25) = 75025 (0.0273s)
+3:1:2: Fib(35) = 9227465 (3.4467s)
+Completed in 3.4741s
+
+FAST
+Test | Sequence  | Result
+1:2:2: Fib(10) = 55 (0.0s)
+2:2:2: Fib(25) = 75025 (0.0s)
+3:2:2: Fib(75) = 9227465 (0.0s)
+4:2:2: Fib(256) = 141693817714056513234709965875411919657707794958199867 (0.0s)
+Completed in 0.0001s
+
+GENERATOR
+1: 0
+2: 1
+3: 1
+4: 2
+5: 3
+6: 5
+7: 8
+8: 13
+9: 21
+10: 34
+
+"""
+
+
 # Bad Way
 def fibonacci(n):
     if n <= 1:
