@@ -72,18 +72,22 @@ class Employee(object):
         """
         self.firstname = firstname
         self.lastname = lastname
-        self.email = "{}.{}@{}".format(firstname, lastname, domain)
         self.salary = salary
         self.domain = domain
         self.group = None
     
+    @property
+    def email(self):
+        return "{}.{}@{}".format(self.firstname, self.lastname, self.domain)
+    
+    @property
     def fullname(self):
         """Format the full name of the Employee
         
         Returns:
             String of the first and last name separated by a space
         """
-        return self.firstname + " " + self.lastname
+        return "{} {}".format(self.firstname, self.lastname)
     
     def __repr__(self):
         """Print the declaration of the object for development notes
@@ -99,7 +103,7 @@ class Employee(object):
         Returns:
             String with the Firstname Lastname (FirstName.LastName@Domain)
         """
-        return "{} ({})".format(self.fullname(),self.email)
+        return "{} ({})".format(self.fullname,self.email)
     
     def __add__(self,other):
         """Configure addition operator when combining employees
