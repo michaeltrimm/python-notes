@@ -58,18 +58,21 @@ def dict_interdiff(d1, d2, f):
     # t1: d2 = {1: 40, 2: 50, 3: 60, 4: 70, 6: 90}
     # t1: d2.viewkeys() = dict_keys([1, 2, 3, 4, 6])
     
+    """determine the unique keys between d1 and d2"""
     diff  = d1.viewkeys()     ^           d2          # extract keys that only appear in d1 and not d2
     # t1:   [1, 2, 3, 5]     XOR    [1, 2, 3, 4, 6] => [False,  False,  False,  True,  True,  True  ]
     # t1:                                               common  common  common  unique unique unique
     # t1:                                               dropped dropped dropped kept   kept   kept
     # t1: diff = set([4, 5, 6])
     
+    """determine the common keys between d1 and d2"""
     inter = d1.viewkeys()      &           d2          # extract keys that appear in BOTH d1 and d2
     # t1:   [1, 2, 3, 5]      AND    [1, 2, 3, 4, 6] => True,  True,  True,  False,  False,  False
     # t1:                                               common common common unique  unique  unique
     # t1:                                               kept   kept   kept   dropped dropped dropped
     # t1: inter = set([1, 2, 3])
     
+    """find the functional output of the associative common keys' values and assign them to the intersection key"""
     # Result needs to be a tuple showing the intersection, difference results based on the f() function
     intersection = { 
         key: f( d1[key] , d2[key] ) for key in inter
@@ -85,7 +88,63 @@ def dict_interdiff(d1, d2, f):
     #       3: 90
     #     }
     
-    difference = {}
+    """determine the common keys between diff and d1's keys"""
+    d1_diff_diff =    diff    &  d1.viewkeys()
+    # t1:       [4, 5, 6] AND [1, 2, 3, 5]              => find all common elements using bitwise and
+    # t1: d1_diff_diff = set([5])
+    # t2: d1_diff_diff = set([])
+    
+    """build a dict that contains the common keys of diff and d1's keys and the associative value in d1"""
+    difference = {
+        key: d1[key] for key in d1_diff_diff
+    }
+    # difference = { d1_diff_diff_key: d1[d1_diff_diff[key]], ... }
+    #   d1_diff_diff
+    #       1: d1[5] => 80
+    #   result: {
+    #       1: 80
+    #   }
+    
+    # At This Point
+    #------------------------------------------
+    # ({1: 70, 2: 70, 3: 90}, {5: 80})
+    # Failed Test 1
+    #
+    # ({1: False, 2: False, 3: False}, {})
+    # Passed Test 2
+    #------------------------------------------
+    # aka test 1's difference element is missing d2 data, let's add it
+    
+    """determine the common keys between diff and d2 keys"""
+    d2_diff_diff =   diff     &   d2.viewkeys()
+    # t1:          [4, 5, 6] AND [1, 2, 3, 4, 6]        => find all common elements using bitwise AND
+    # t1: d2_diff_diff = set([4, 6])
+    # t2: d2_diff_diff = set([])
+    
+    
+    """insert the common elements of diff and d2 keys into the difference set"""
+    difference.update( {
+        key: d2[key] for key in d2_diff_diff
+    } )
+    # difference = difference + { d2_diff_diff_key: d2[d2_diff_diff[key]], ... }
+    #   d2_diff_diff = 
+    #       4: d2[4] => 4: 70
+    #       6: d2[6] => 6: 90
+    #   result = {
+    #       4: 70,  # added using .update()
+    #       5: 80,  # existing in the result
+    #       6: 90   # added using .update()
+    #   }
+    
+    # At This Point
+    #------------------------------------------
+    # ({1: 70, 2: 70, 3: 90}, {4: 70, 5: 80, 6: 90})
+    # Passed Test 1
+    #
+    # ({1: False, 2: False, 3: False}, {})
+    # Passed Test 2
+    #------------------------------------------
+    # aka all done!
     
     return intersection, difference
 
