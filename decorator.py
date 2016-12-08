@@ -1,5 +1,11 @@
 #!/usr/bin/python
 
+import sys
+import time
+
+"""
+A Stupid Decorator
+"""
 def simple_decorator(decorator):
     def new_decorator(f):
         d = decorator(f)
@@ -19,3 +25,20 @@ def double(x):
     return 2 * x
 
 print(double(155))
+
+"""
+A Useful Decorator
+"""
+def timed(function):
+    def timer(*args, **kwargs):
+        try:
+            start = time.time()
+            return function(*args, **kwargs)
+        finally:
+            end = time.time()
+            sys.stderr.write("Called %s in %f seconds\n" % (function.__name__, end-start))
+    return timer
+
+@timed
+def doSomething():
+    time.sleep(10);
