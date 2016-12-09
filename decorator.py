@@ -39,6 +39,7 @@ def timed(function):
             sys.stderr.write("Called %s in %f seconds\n" % (function.__name__, end-start))
     return timer
 
+
 @timed
 def doSomething():
     time.sleep(10);
